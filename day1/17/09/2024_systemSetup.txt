@@ -1,0 +1,5 @@
+setup completed of zsh and installed homebrew
+installed visual studio and docker desktop
+Installed node version manager
+ssh configuration 
+github account created
