@@ -1,5 +1,117 @@
-setup completed of zsh and installed homebrew
-installed visual studio and docker desktop
-Installed node version manager
-ssh configuration 
-github account created
+Node.js Internship Training: System Setup
+1. Shell (Bash / Zsh)
+
+    The shell is a command-line interface that allows you to interact with your operating system.
+    used for development tasks like running scripts, version control, and managing packages happen in the terminal.
+    Set up:
+        Mac users: By default, the shell is bash. We will install zsh for a more modern experience.
+        Zsh is highly customizable with plugins like Oh My Zsh.
+        Installation: brew install zsh and then sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)".
+    Benefits: Autocompletion, better history management, themes, and plugins for efficiency.
+
+2. Zsh (Oh My Zsh)
+
+    A powerful shell with more features compared to Bash, and Oh My Zsh is a framework to manage its configuration.
+    Zsh enhances developer productivity with autocompletion, shortcuts, and Git integration.
+
+    Set up: 
+        Mac users: Paste the following command to install Oh My Zsh: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    Benefits: Set up themes like agnoster or powerlevel10k for a visually appealing and informative terminal.
+
+3. Node Version Manager (NVM)
+
+    A version manager for Node.js that allows you to easily install and switch between different versions of Node.js.
+    Projects often require different Node.js versions, and NVM simplifies managing these versions.
+
+    Installation and setup:
+    bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    Usage:
+        Install Node: nvm install <version>
+        Switch between versions: nvm use <version>.
+
+4. Visual Studio Code (VSCode)
+
+    A lightweight code editor with great support for Node.js development.
+    VSCode is highly customizable with extensions and is one of the most popular IDEs among developers.
+
+    Plugins to install:
+        ESLint: For linting and code style enforcement.
+        Prettier: For code formatting.
+        GitLens: For Git history and code annotations.
+        Debugger for Node.js: To help with debugging Node.js applications.
+        Live Share: For collaborative coding.
+    Tips: Walk interns through setting up their workspace, configuring settings (e.g., auto-save, format on save).
+
+5. Homebrew (brew)
+
+    A package manager for macOS/Linux that simplifies software installation.
+    Many tools, like zsh and node, can be installed easily using Homebrew.
+    How to install:
+
+    bash
+
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    Example: brew install git to install Git.
+
+6. Docker
+
+    A platform for developing, shipping, and running applications inside lightweight containers.
+    Docker ensures that your application runs the same way in every environment, reducing "works on my machine" issues.
+
+    Installation and setup:
+        On the terminal write brew install --cask docker.
+        Verify the installation: docker --version.
+    Basic commands:
+        docker pull <image>: To download a Docker image.
+        docker run <image>: To run a Docker container.
+        docker ps: To list running containers.
+
+7. SSH Configuration
+
+    SSH (Secure Shell) allows you to securely connect to remote machines.
+    SSH is used for interacting with Git repositories (GitHub, GitLab) and remote servers.
+
+    Configure:
+        Generate SSH keys: ssh-keygen -t rsa -b 4096 -C "your_email@example.com".
+        Add your SSH key to SSH agent: eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa.
+        Add the public key to GitHub/GitLab.
+    Usage: Demonstrate how to clone a GitHub repo via SSH: git clone git@github.com:user/repo.git.
+
+    https://blog.gitguardian.com/8-easy-steps-to-set-up-multiple-git-accounts/
+
+8. Direnv
+
+    A tool to automatically load and unload environment variables based on the directory you're in.
+    Helps manage project-specific environment variables without polluting your global environment.
+
+    Set up:
+        Install: brew install direnv.
+        Add it to shell config (~/.zshrc or ~/.bashrc): eval "$(direnv hook zsh)".
+    Usage:
+        Create .envrc file in the project directory with necessary environment variables.
+        Run direnv allow to load the environment variables.
+
+9. iTerm2
+
+    A terminal emulator for macOS with advanced features compared to the default Terminal app.
+    iTerm2 provides better customizability, split panes, session management, and more.
+
+    setup: 
+        brew install iTerm2
+    Tips:
+        Customize themes and keyboard shortcuts.
+        Enable split view for multitasking within the terminal.
+    https://iterm2.com/downloads.html
+
+10. GitHub Account
+
+    A cloud-based service for hosting Git repositories.
+    GitHub is widely used for version control and collaboration on projects.
+    Set up:
+
+        Create an account on GitHub.
+        Configure Git with your credentials: git config --global user.name "Your Name" and git config --global user.email "your_email@example.com".
+        
+    Usage: Basic Git commands (e.g., git clone, git commit, git push, git pull).
