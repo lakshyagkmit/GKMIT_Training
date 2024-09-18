@@ -115,3 +115,4 @@ Node.js Internship Training: System Setup
         Configure Git with your credentials: git config --global user.name "Your Name" and git config --global user.email "your_email@example.com".
         
     Usage: Basic Git commands (e.g., git clone, git commit, git push, git pull).
+    Changed things
