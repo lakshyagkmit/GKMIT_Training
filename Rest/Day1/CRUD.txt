@@ -1,0 +1,212 @@
+User Crud operation
+
+Create:
+
+url - https://localhost:3001/users
+method - POST
+body - {
+  "name" : "Lakshya Kumar Singh",
+  "ph" : "6773457"
+}
+response - {
+  "id" : 1,
+  "name" : "Lakshya Kumar Singh",
+  "ph" : "6773457"
+}
+status - 201
+
+Read: 
+
+all user:
+url - https://localhost:3001/users
+method - GET
+response - [
+	{
+		"id" : 1,
+		"name": "Lakshya Kumar Singh",
+		"ph" : "6773457"
+	},{
+	....
+	},{
+	...
+	},...
+]
+status - 200
+
+all users in paginated version:
+url - https://localhost:3001/users?page=1&limit=10
+method - GET
+response - [
+	{
+		"id" : 1,
+		"name": "Lakshya Kumar Singh",
+		"ph" : "6773457"
+	},
+	{
+		"id" : 2,
+		"name": "Harshit Purohit",
+		"ph" : "1234567"
+	},
+	...
+]
+status - 200
+
+
+single user:
+url - https://localhost:3000/users/:id
+method - GET
+response - {
+	"id" : 1,
+	"name" : "Lakshya Kumar Singh",
+	"ph" : "6773457"
+}
+status - 200
+
+Update: 
+
+url - https://localhost:3001/users/:id
+method - PUT
+body - {
+	"id" : 1,
+	"name" : "Lakshya Singh",
+	"ph" : "745454"
+}
+response - {
+	"id" : 1,
+	"name" : "Lakshya Singh",
+	"ph" : "745454"
+}
+status - 200
+
+url - https://localhost:3001/users/:id
+method - PATCH
+body - {
+	"id" : 1,
+	"ph" : "745454"
+}
+response - {
+	"id" : 1,
+	"name" : "Lakshya Singh",
+	"ph" : "745454"
+}
+status - 200
+
+url - https://localhost:3001/users/:id
+method - DELETE
+response - {
+	"success" : "true"
+}
+status - 200
+
+
+
+
+USER POSR CRUD OPERATION
+
+Create:
+
+url - https://localhost:3001/users/posts
+method - POST
+body - {
+  "postId" : 1,
+  "title" : "Hello world"
+}
+response - {
+  "postId" : 1,
+  "title" : "Hello world"
+}
+status - 201
+
+Read: 
+
+all posts:
+url - https://localhost:3001/users/:id/posts
+method - GET
+response - [
+	{
+		"postId" : 1,
+  		"title" : "Hello world"	
+  	},{
+	....
+	},{
+	...
+	},...
+]
+status - 200
+
+all posts in paginated version:
+url - https://localhost:3001/users/:id/posts?page=1&limit=10
+method - GET
+response - [
+	{
+		
+	},
+	{
+		"postId" : 2,
+		"title" : "Hi world"
+	},
+	...
+]
+status - 200
+
+
+single post:
+url - https://localhost:3000/users/:id/posts/:postId
+method - GET
+response - {
+	"postId" : 1,
+  	"title" : "Hello world"	
+}
+status - 200
+
+Update: 
+
+url - https://localhost:3001/users/:id/posts/:postId
+method - PUT
+body - {
+	"postId" : 1,
+  	"title" : "Nice world"	
+}
+response - {
+	"postId" : 1,
+  	"title" : "Nice world"
+  	}
+status - 200
+
+url - https://localhost:3001/users/:id/posts/:postId
+method - PATCH
+body - {
+	"postId" : 1,
+  	"title" : "No world"
+}
+response - {
+	"postId" : 1,
+  	"title" : "No world"
+}
+status - 200
+
+url - https://localhost:3001/users/:id/posts/:postId
+method - DELETE
+response - {
+	"success" : "true"
+}
+status - 200
+
+
+
+
+
+Query parameter of get of users of posts
+url - https://localhost:3001/users/:id/posts?from=19-09-2024&to=20-09-2024
+method - GET
+response - [
+	{
+		"postId" : 1,
+  		"title" : "Hello world"	
+  	},{
+	....
+	},{
+	...
+	},...
+]
+status - 200
