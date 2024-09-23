@@ -1,0 +1,513 @@
+{
+	"info": {
+		"_postman_id": "d638483f-a411-45c5-8121-4b4b3c4aac06",
+		"name": "Location",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38476540"
+	},
+	"item": [
+		{
+			"name": "Countries",
+			"item": [
+				{
+					"name": "States",
+					"item": [
+						{
+							"name": "Cities",
+							"item": [
+								{
+									"name": "list all cities from a state",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/states/:stateId/cities",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"states",
+												":stateId",
+												"cities"
+											],
+											"variable": [
+												{
+													"key": "stateId",
+													"value": "{{stateId}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create city",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\" : \"Udaipur\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/states/:stateId/cities",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"states",
+												":stateId",
+												"cities"
+											],
+											"variable": [
+												{
+													"key": "stateId",
+													"value": "{{stateId}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "update city details",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\" : \"{{$randomCity}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/states/:stateId/cities/:cityId",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"states",
+												":stateId",
+												"cities",
+												":cityId"
+											],
+											"variable": [
+												{
+													"key": "stateId",
+													"value": "{{stateId}}"
+												},
+												{
+													"key": "cityId",
+													"value": "{{cityId}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete city",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URL}}/states/:stateId/cities/:cityId",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"states",
+												":stateId",
+												"cities",
+												":cityId"
+											],
+											"variable": [
+												{
+													"key": "stateId",
+													"value": "{{stateId}}"
+												},
+												{
+													"key": "cityId",
+													"value": "{{cityId}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get single city",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URL}}/states/:stateId/cities/:cityId",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"states",
+												":stateId",
+												"cities",
+												":cityId"
+											],
+											"variable": [
+												{
+													"key": "stateId",
+													"value": "{{stateId}}"
+												},
+												{
+													"key": "cityId",
+													"value": "{{cityId}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"description": "All cities in a state"
+						},
+						{
+							"name": "list all states of a country",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/countries/:id/states",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"countries",
+										":id",
+										"states"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{CountryId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create a state",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"Rajasthan\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/countries/:id/states",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"countries",
+										":id",
+										"states"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{CountryId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update state details",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"{{$randomState}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/countries/:id/states/:stateId",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"countries",
+										":id",
+										"states",
+										":stateId"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{CountryId}}"
+										},
+										{
+											"key": "stateId",
+											"value": "{{stateId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete state",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/countries/:id/states/:stateId",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"countries",
+										":id",
+										"states",
+										":stateId"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{CountryId}}"
+										},
+										{
+											"key": "stateId",
+											"value": "{{stateId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get single state",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/countries/:id/states/:stateId",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"countries",
+										":id",
+										"states",
+										":stateId"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{CountryId}}"
+										},
+										{
+											"key": "stateId",
+											"value": "{{stateId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "All states in a country"
+				},
+				{
+					"name": "list all countries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/countries",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create a country",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"India\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/countries",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update country details",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomCountry}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/countries/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"countries",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{CountryId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete a country",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/countries/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"countries",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{CountryId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get single country",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/countries/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"countries",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{CountryId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All countries"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:5001/api",
+			"type": "string"
+		}
+	]
+}
