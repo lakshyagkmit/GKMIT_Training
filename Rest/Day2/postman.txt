@@ -1,0 +1,25 @@
+Postman
+ 
+Explanation on how postman works and its use cases.
+
+How to define environment variable in postman the basic syntax of it is {{BASE_URL}}
+Api testing in postman
+
+Difference between 401 and 403 (complete explanation with examples (license)) 
+Discussion on Authentication and Authorization
+
+Task to be Done :  
+1. Create environment variables through Global and Through Collections.
+2. Share a Postman Collection.
+3. Read Methods to share a collection.
+4. Difference between Authentication and Authorization.
+5. Differences and use cases of form data, binary, body, x-www-form-urlencoded.
+6. Folder structure and write the end-point of country->state->city.
+
+Tasks Done :
+1. created environment variables through Global and through collections
+2. Shared a postman collection.
+3. Learnt different methods to share a collection
+4. Studied difference between various bodies of Postman and their use cases.
+5. authentication vs authorisation
+6. created testing collections in post man of country->state->city.
