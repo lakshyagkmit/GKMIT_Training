@@ -1,0 +1,1714 @@
+{
+	"info": {
+		"_postman_id": "0fadc0ad-9779-477d-b78c-8ec3460862f2",
+		"name": "Chinook-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38476540"
+	},
+	"item": [
+		{
+			"name": "Tracks",
+			"item": [
+				{
+					"name": "list single track",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = {",
+									"    \"TrackId\" : 1,",
+									"    \"Name\" : \"For Those About To Rock (We Salute You)\",",
+									"    \"AlbumId\" : 1,",
+									"    \"MediaTypeId\" : 1,",
+									"    \"GenreId\" : 1,",
+									"    \"Composer\" : \"Angus Young, Malcolm Young, Brian Johnson\",",
+									"    \"Milliseconds\" :  343719,",
+									"    \"Bytes\" : 11170334,",
+									"    \"UnitPrice\" : 0.99",
+									"}",
+									"",
+									"",
+									"`select",
+									"    *",
+									"from",
+									"    \"Track\"",
+									"WHERE",
+									"    \"TrackId\" = 1;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/tracks/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tracks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add track",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = {",
+									"    \"Name\" : \"For Those About To Rock (We Salute You)\",",
+									"    \"AlbumId\" : 1,",
+									"    \"MediaTypeId\" : 1,",
+									"    \"GenreId\" : 1,",
+									"    \"Composer\" : \"Angus Young, Malcolm Young, Brian Johnson\",",
+									"    \"Milliseconds\" :  343719,",
+									"    \"Bytes\" : 11170334,",
+									"    \"UnitPrice\" : 0.99",
+									"}",
+									"",
+									"`insert into \"Track\"",
+									"values (\"For Those About To Rock (We Salute You)\", 1, 1, 1, ",
+									"        \"Angus Young, Malcolm Young, Brian Johnson\", 343719, 11170334, 0.99)`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\" : \"For Those About To Rock (We Salute You)\",\n    \"AlbumId\" : 1,\n    \"MediaTypeId\" : 1,\n    \"GenreId\" : 1,\n    \"Composer\" : \"Angus Young, Malcolm Young, Brian Johnson\",\n    \"Milliseconds\" :  343719,\n    \"Bytes\" : 11170334,\n    \"UnitPrice\" : 0.99\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/tracks",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tracks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update track details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = {",
+									"    \"TrackId\" : 1,",
+									"    \"Name\" : \"For Those About To Rock (We Salute You)\",",
+									"    \"AlbumId\" : 1,",
+									"    \"MediaTypeId\" : 1,",
+									"    \"GenreId\" : 1,",
+									"    \"Composer\" : \"Angus Young, Malcolm Young, Brian Johnson\",",
+									"    \"Milliseconds\" :  343750,",
+									"    \"Bytes\" : 11170334676,",
+									"    \"UnitPrice\" : 0.99",
+									"}",
+									"",
+									"`UPDATE ",
+									"    \"Track\"",
+									"SET \"Milliseconds\" = 343750,",
+									"    \"Bytes\" = 11170334676",
+									"WHERE",
+									"    \"TrackId\" = 1",
+									"RETURNING *`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Milliseconds\" :  343750,\n    \"Bytes\" : 1117033467\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/tracks/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tracks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete track",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"`UPDATE \"Track\"",
+									"SET deleted_at = NOW()",
+									"WHERE \"TrackId\" = 1;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/tracks/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tracks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list all tracks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = [",
+									"    {",
+									"    \"TrackId\" : 1,",
+									"    \"Name\" : \"For Those About To Rock (We Salute You)\",",
+									"    \"AlbumId\" : 1,",
+									"    \"MediaTypeId\" : 1,",
+									"    \"GenreId\" : 1,",
+									"    \"Composer\" : \"Angus Young, Malcolm Young, Brian Johnson\",",
+									"    \"Milliseconds\" :  343719,",
+									"    \"Bytes\" : 11170334,",
+									"    \"UnitPrice\" : 0.99",
+									"},",
+									"{",
+									"    \"TrackId\" : 2,",
+									"    \"Name\" : \"For Those\",",
+									"    \"AlbumId\" : 2,",
+									"    \"MediaTypeId\" : 2,",
+									"    \"GenreId\" : 2,",
+									"    \"Composer\" : \"Angus Young, Malcolm\",",
+									"    \"Milliseconds\" :  343719,",
+									"    \"Bytes\" : 11170334,",
+									"    \"UnitPrice\" : 0.99",
+									"},",
+									"{",
+									"    ...",
+									"}]",
+									"",
+									"",
+									"`select",
+									"    *",
+									"from",
+									"    \"Track\";`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/tracks",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tracks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Playlists",
+			"item": [
+				{
+					"name": "PlaylistsTracks",
+					"item": [
+						{
+							"name": "list all tracks from a playlist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"response = [",
+											"{",
+											"    \"PlaylistName\" : \"Music\",",
+											"    \"TrackName\" : \"For Those About To Rock (We Salute You)\"",
+											"},",
+											"{",
+											"    \"PlaylistName\" : \"Music\",",
+											"    \"TrackName\" : \"balls at the wall\"",
+											"},",
+											"{",
+											"    ...",
+											"}]",
+											"",
+											"",
+											"",
+											"",
+											"`select",
+											"\tPlaylist\".\"Name\",",
+											"    \"Track\".\"Name\"",
+											"from",
+											"    \"PlaylistTrack\"",
+											"join \"Track\" on \"Track\".\"TrackId\" = \"PlaylistTrack\".\"TrackId\"",
+											"join \"Playlist\" on \"Playlist\".\"PlaylistId\" = \"PlaylistTrack\".\"PlaylistId\"",
+											"where ",
+											"    \"PlaylistTrack\".\"PlaylistId\" = 1;`"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/playlists/:playlistId/tracks",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"playlists",
+										":playlistId",
+										"tracks"
+									],
+									"variable": [
+										{
+											"key": "playlistId",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list single track from a playlist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"response = {",
+											"    \"PlaylistName\" : \"Music\",",
+											"    \"TrackName\" : \"For Those About To Rock (We Salute You)\"",
+											"}",
+											"",
+											"",
+											"`select",
+											"\t\"Playlist\".\"Name\",",
+											"    \"Track\".\"Name\"",
+											"from",
+											"    \"PlaylistTrack\"",
+											"join \"Track\" on \"Track\".\"TrackId\" = \"PlaylistTrack\".\"TrackId\"",
+											"join \"Playlist\" on \"Playlist\".\"PlaylistId\" = \"PlaylistTrack\".\"PlaylistId\"",
+											"where ",
+											"\t\"PlaylistTrack\".\"PlaylistId\" = 1 and \"PlaylistTrack\".\"TrackId\" = 1;`"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/playlists/:playlistId/tracks/:trackId",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"playlists",
+										":playlistId",
+										"tracks",
+										":trackId"
+									],
+									"variable": [
+										{
+											"key": "playlistId",
+											"value": "1"
+										},
+										{
+											"key": "trackId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add track in playlist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"response = {  ",
+											"    \"TrackName\" : \"Restless and Wild\"",
+											"}",
+											"",
+											"`INSERT INTO \"PlaylistTrack\" (\"PlaylistId\", \"TrackId\")",
+											"VALUES (1, 5);`"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TrackName\" : \"Restless and Wild\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/playlists/:playlistId/tracks",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"playlists",
+										":playlistId",
+										"tracks"
+									],
+									"variable": [
+										{
+											"key": "playlistId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete a track from a playlist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"`UPDATE \"PlaylistTrack\"",
+											"SET \"deleted_at\" = NOW()",
+											"WHERE \"PlaylistId\" = 1 AND \"TrackId\" = 5;`"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/playlists/:playlistId/tracks/:trackId",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"playlists",
+										":playlistId",
+										"tracks",
+										":trackId"
+									],
+									"variable": [
+										{
+											"key": "playlistId",
+											"value": "1"
+										},
+										{
+											"key": "trackId",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "list all playlists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = [",
+									"    {",
+									"    \"PlaylistId\" : 1,",
+									"    \"Name\" : \"Music\"",
+									"},",
+									"{",
+									"    \"PlaylistId\" : 2,",
+									"    \"Name\" : \"Movies\"",
+									"},",
+									"{",
+									"    ...",
+									"}]",
+									"",
+									"",
+									"`select",
+									"    *",
+									"from",
+									"    \"Playlist\";`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/playlists",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"playlists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list single playlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = {",
+									"    \"PlaylistId\" : 1,",
+									"    \"Name\" : \"Music\"",
+									"}",
+									"",
+									"",
+									"`select",
+									"    *",
+									"from",
+									"    \"Playlist\"",
+									"where",
+									"    \"PlaylistId\" = 1;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/playlists/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"playlists",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add playlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = {",
+									"    \"Name\" : \"Movies\"",
+									"}",
+									"",
+									"",
+									"`insert into \"Playlist\"",
+									"values (\"Movies\");`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\" : \"Movies\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/playlists",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"playlists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update playlist details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = {",
+									"    \"PlaylistId\" : 1,",
+									"    \"Name\" : \"TV Shows\"",
+									"}",
+									"",
+									"`update \"Playlist\"",
+									"set \"Name\" = 'TV Shows'",
+									"where \"PlaylistId\" = 1;",
+									"returning *`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\" : \"TV Shows\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/playlists/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"playlists",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"`UPDATE \"Playlist\"",
+									"SET deleted_at = NOW()",
+									"WHERE \"PlaylistId\" = 1;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/playlists/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"playlists",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Albums",
+			"item": [
+				{
+					"name": "Albumsdetails",
+					"item": [
+						{
+							"name": "list all tracks in an album",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"response = [",
+											"{",
+											"    \"TrackId\": 1,",
+											"    \"Name\": \"For Those About To Rock (We Salute You)\",",
+											"    \"Composer\": \"Angus Young, Malcolm Young, Brian Johnson\",",
+											"    \"Milliseconds\": 343719,",
+											"    \"Bytes\": 11170334,",
+											"    \"UnitPrice\": 0.99",
+											"},",
+											"{",
+											"    \"TrackId\": 6,",
+											"    \"Name\": \"Put The Finger On You\",",
+											"    \"Composer\": \"Angus Young, Malcolm Young, Brian Johnson\",",
+											"    \"Milliseconds\": 205662,",
+											"    \"Bytes\": 6713451,",
+											"    \"UnitPrice\": 0.99",
+											"}]",
+											"",
+											"`select",
+											"    t.\"TrackId\", ",
+											"    t.\"Name\", ",
+											"    t.\"Composer\", ",
+											"    t.\"Milliseconds\", ",
+											"    t.\"Bytes\", ",
+											"    t.\"UnitPrice\"",
+											"from",
+											"    \"Track\" t",
+											"join \"Album\" a on t.\"AlbumId\" = a.\"AlbumId\"",
+											"where",
+											"    a.\"AlbumId\" = 1;`",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/albums/:albumId/tracks",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"albums",
+										":albumId",
+										"tracks"
+									],
+									"variable": [
+										{
+											"key": "albumId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list all albums of an artist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"response = [",
+											"  {",
+											"    \"ArtistId\": 1,",
+											"    \"Name\": \"AC/DC\",",
+											"    \"Title\": \"For Those About To Rock We Salute You\"",
+											"  },",
+											"  {",
+											"    \"ArtistId\": 1,",
+											"    \"Name\": \"AC/DC\",",
+											"    \"Title\": \"Let There Be Rock\"",
+											"  }",
+											"]",
+											"",
+											"`select",
+											"    a.\"ArtistId\", ",
+											"    a.\"Name\", ",
+											"    al.\"Title\" ",
+											"from",
+											"    public.\"Artist\" a",
+											"join public.\"Album\" al on a.\"ArtistId\" = al.\"ArtistId\"",
+											"where ",
+											"    al.\"ArtistId\" = 1;`"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/albums?artistId=1",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"albums"
+									],
+									"query": [
+										{
+											"key": "artistId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "list all albums",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = [",
+									"{",
+									"    \"AlbumId\" : 1,",
+									"    \"Title\" : \"For Those About To Rock We Salute You\",",
+									"    \"ArtistId\": 1",
+									"},",
+									"{",
+									"    \"AlbumId\" : 2,",
+									"    \"Title\" : \"For Those About To Rock\",",
+									"    \"ArtistId\" : 2",
+									"},",
+									"{",
+									"    ...",
+									"}]",
+									"",
+									"",
+									"`select",
+									"    *",
+									"from",
+									"    \"Album\";`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/albums",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add album",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = {",
+									"    \"Title\" : \"Big Ones\",",
+									"    \"ArtistId\" : 5",
+									"}",
+									"",
+									"`insert into \"Album\"",
+									"values (\"Big Ones\", 5);`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Title\" : \"Big Ones\",\n    \"ArtistId\" : 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/albums",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update album",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = {",
+									"    \"AlbumId\" : 1,",
+									"    \"Title\" : \"Bg Ones\",",
+									"    \"ArtistId\": 1",
+									"}",
+									"",
+									"`update Album",
+									"set \"Title\" = \"Big Ones\"",
+									"where \"AlbumId\" = 1;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Title\" : \"Big Ones\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/albums/:albumId",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"albums",
+								":albumId"
+							],
+							"variable": [
+								{
+									"key": "albumId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete an album",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"`UPDATE \"Album\"",
+									"SET deleted_at = NOW()",
+									"WHERE \"AlbumId\" = 1;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/albums/:albumId",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"albums",
+								":albumId"
+							],
+							"variable": [
+								{
+									"key": "albumId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Artists",
+			"item": [
+				{
+					"name": "list all artists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = [",
+									"{",
+									"    \"ArtistId\" : 1,",
+									"    \"Name\" : \"AC/DC\"",
+									"},",
+									"{",
+									"    \"ArtistId\" : 1,",
+									"    \"Name\" : \"ColdPlay\"",
+									"}]",
+									"",
+									"`select",
+									"    *",
+									"from",
+									"    \"Artist\";`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/artists",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add artist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = {",
+									"    \"Name\" : \"AC/DC\"",
+									"}",
+									"",
+									"`insert into \"Artist\"",
+									"values (\"AC/DC\");`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\" : \"AC/DC\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/artists",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update artist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = {",
+									"    \"ArtistId\" : 1,",
+									"    \"Name\" : \"ColdPlay\"",
+									"}",
+									"",
+									"`update \"Artist\"",
+									"set \"Name\" = \"ColdPlay\"",
+									"where \"ArtistId\" = 1;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\" : \"ColdPlay\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/artists/:artistId",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artists",
+								":artistId"
+							],
+							"variable": [
+								{
+									"key": "artistId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete artist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"`UPDATE \"Artist\"",
+									"SET deleted_at = NOW()",
+									"WHERE \"ArtistId\" = 1;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/artists/:artistId",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artists",
+								":artistId"
+							],
+							"variable": [
+								{
+									"key": "artistId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MediaTypes",
+			"item": [
+				{
+					"name": "list all mediatypes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response =[",
+									"{   ",
+									"    \"MediaTypeId\" : 1,",
+									"    \"Name\" : \"MPEG audio file\"",
+									"},",
+									"{",
+									"    \"MediaTypeId\" : 2,",
+									"    \"Name\" : \"Protected AAC audio file\"",
+									"},",
+									"{",
+									"    ...",
+									"}]",
+									"",
+									"`select",
+									"\t*",
+									"from",
+									"\t\"MediaType\";`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/mediatypes",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mediatypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list single mediatype",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response ={   ",
+									"    \"MediaTypeId\" : 1,",
+									"    \"Name\" : \"MPEG audio file\"",
+									"}",
+									"",
+									"`select",
+									"\t*",
+									"from",
+									"\t\"MediaType\"",
+									"where",
+									"    \"MediaTypeId\" = 1;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/mediatypes/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mediatypes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add a mediatype",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = {",
+									"    \"Name\" : \"MPEG audio file\"",
+									"}",
+									"",
+									"`insert into \"MediaType\"",
+									"values (\"MPEG audio files\");`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\" : \"MPEG audio file\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mediatypes",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mediatypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update a mediatype",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = {",
+									"    \"MediaTypeId\" : 1,",
+									"    \"Name\" : \"MPEG audio file\"",
+									"}",
+									"",
+									"`update ",
+									"    \"MediaType\"",
+									"set \"Name\" = \"MPEG audio file\"",
+									"where ",
+									"    \"MediaTypeId\" = 1",
+									"returning *;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\" : \"MPEG audio file\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mediatypes/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mediatypes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete a mediatype",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"`UPDATE \"MediaType\"",
+									"SET deleted_at = NOW()",
+									"WHERE \"MediaTypeId\" = 1;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/mediatypes/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mediatypes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Genres",
+			"item": [
+				{
+					"name": "list all genres",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response =[",
+									"{   ",
+									"    \"GenreId\" : 1,",
+									"    \"Name\" : \"Rock\"",
+									"},",
+									"{",
+									"    \"GenreId\" : 2,",
+									"    \"Name\" : \"Jazz\"",
+									"},",
+									"{",
+									"    ...",
+									"}]",
+									"",
+									"`select",
+									"\t*",
+									"from",
+									"\t\"Genre\";`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/genres",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"genres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list single genre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response ={   ",
+									"    \"GenreId\" : 1,",
+									"    \"Name\" : \"Rock\"",
+									"}",
+									"",
+									"`select",
+									"\t*",
+									"from",
+									"\t\"Genre\"",
+									"where",
+									"    \"GenreId\" = 1;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/genres/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"genres",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add a genre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response = {",
+									"    \"Name\" : \"Pop\"",
+									"}",
+									"",
+									"`insert into \"Genre\"",
+									"values (\"Pop\");`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\" : \"Pop\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/genres",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"genres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update a genre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"response ={   ",
+									"    \"GenreId\" : 1,",
+									"    \"Name\" : \"Pop\"",
+									"}",
+									"",
+									"`select",
+									"\t*",
+									"from",
+									"\t\"Genre\"",
+									"where",
+									"    \"GenreId\" = 1",
+									"returning *;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\" : \"Pop\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/genres/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"genres",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete a genre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"`UPDATE \"Genre\"",
+									"SET deleted_at = NOW()",
+									"WHERE \"GenreId\" = 1;`"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/genres/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"genres",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:5001/api"
+		}
+	]
+}
