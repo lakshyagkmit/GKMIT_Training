@@ -1,0 +1,164 @@
+/* ------------------ 1. Create User’s score and leaderboard in redis? ------------- */
+
+"Adding user with their score in redis":
+
+ZADD "players:score" 0 1
+-> (integer) 1
+
+ZADD "players:score" 0 2
+-> (integer) 1
+
+ZADD "players:score" 0 3
+-> (integer) 1
+
+ZADD "players:score" 0 4
+-> (integer) 1
+
+ZADD "players:score" 0 5
+-> (integer) 1
+
+ZADD "players:score" 0 6
+-> (integer) 1
+
+ZADD "players:score" 0 7
+-> (integer) 1
+
+ZADD "players:score" 0 8
+-> (integer) 1
+
+ZADD "players:score" 0 9
+-> (integer) 1
+
+ZADD "players:score" 0 10
+-> (integer) 1
+
+
+
+"Adding scores in players data in redis": 
+
+ZINCRBY "players:score" 200 1
+-> "200"
+
+ZINCRBY "players:score" 400 2
+-> "400"
+
+ZINCRBY "players:score" 700 3
+-> "700"
+
+ZINCRBY "players:score" 100 4
+-> "100"
+
+ZINCRBY "players:score" 150 5
+-> "150"
+
+ZINCRBY "players:score" 800 6
+-> "800"
+
+ZINCRBY "players:score" 500 7
+-> "500"
+
+ZINCRBY "players:score" 300 8
+-> "300"
+
+ZINCRBY "players:score" 900 9
+-> "900"
+
+ZINCRBY "players:score" 250 10
+-> "250"
+
+
+
+"Leaderboard of the players":
+
+ZREVRANGE "players:score" 0 10 WITHSCORES
+->  1) "9"
+ 	2) "900"
+ 	3) "6"
+ 	4) "800"
+ 	5) "3"
+ 	6) "700"
+ 	7) "7"
+ 	8) "500"
+    9) "2"
+	10) "400"
+	11) "8"
+	12) "300"
+	13) "10"
+	14) "250"
+	15) "1"
+	16) "200"
+	17) "5"
+	18) "150"
+	19) "4"
+	0) "100"
+
+
+
+"Rank of a player":
+
+ZREVRANK "players:score" 9
+-> (integer) 0 
+
+/* ------------------ 2. Create an array of geo locations and find the shortest path ------------- */
+
+
+"Adding GeoLocation data of different places":
+
+GEOADD "tourist:places" 24.629039760457072 73.6713227386378 "Pratap Gaurav Kendra"
+-> (integer) 1
+
+GEOADD "tourist:places" 24.58210247505424 73.68396546838554 "City Palace"
+-> (integer) 1
+
+GEOADD "tourist:places" 24.5986483034028 73.63864686876053 "Monsoon Palace"
+-> (integer) 1
+
+GEOADD "tourist:places" 24.569545088754897 73.67747499972772 "Jagdish Mandir"
+-> (integer) 1
+
+GEOADD "tourist:places" 24.593876924074877 73.65349173981828 "Biological Park"
+-> (integer) 1
+
+
+
+"Searching for the nearest place":
+
+GEOSEARCH "tourist:places" FROMLONLAT 24.597905457938914 73.71017668482342 BYRADIUS 3 km WITHDIST
+-> 1) 1) "City Palace"
+   2) "2.9569"
+
+GEOSEARCH "tourist:places" FROMLONLAT 24.597905457938914 73.71017668482342 BYRADIUS 4 km WITHDIST
+-> 1) 1) "Jagdish Mandir"
+   2) "3.7437"
+2) 1) "City Palace"
+   2) "2.9569"
+
+GEOSEARCH "tourist:places" FROMLONLAT 24.597905457938914 73.71017668482342 BYRADIUS 5 km WITHDIST
+-> 1) 1) "Jagdish Mandir"
+   2) "3.7437"
+2) 1) "City Palace"
+   2) "2.9569"
+3) 1) "Pratap Gaurav Kendra"
+   2) "4.4297"
+
+GEOSEARCH "tourist:places" FROMLONLAT 24.597905457938914 73.71017668482342 BYRADIUS 6 km WITHDIST
+-> 1) 1) "Jagdish Mandir"
+   2) "3.7437"
+2) 1) "City Palace"
+   2) "2.9569"
+3) 1) "Pratap Gaurav Kendra"
+   2) "4.4297"
+
+GEOSEARCH "tourist:places" FROMLONLAT 24.597905457938914 73.71017668482342 BYRADIUS 8 km WITHDIST
+-> 1) 1) "Monsoon Palace"
+   2) "7.9560"
+2) 1) "Biological Park"
+   2) "6.3060"
+3) 1) "Jagdish Mandir"
+   2) "3.7437"
+4) 1) "City Palace"
+   2) "2.9569"
+5) 1) "Pratap Gaurav Kendra"
+   2) "4.4297"
+
+
