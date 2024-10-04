@@ -440,289 +440,294 @@ remote.pressButton();
 
 // 1. Single Responsibility Principle
 
+// BAD CODE EXAMPLE:
+// A class that handles both user data and sending emails
 
+class User {
+    constructor(name, email) {
+        this.name = name;
+        this.email = email;
+    }
 
-//Use Case :-  a single UserManager class handling user authentication, data validation, and profile management
+    getUserDetails() {
+        return `User: ${this.name}, Email: ${this.email}`;
+    }
 
-
-//Before (Violates SRP):
-class UserManager {
-  constructor(authService, db) {
-    this.authService = authService;
-    this.db = db;
-  }
-  authenticate(username, password) {
-    // Authentication logic using authService
-  }
-  validateUserData(data) {
-    // Data validation logic
-  }
-  createUserProfile(data) {
-    // Profile creation logic using db
-  }
-  getUserProfile(userId) {
-    // Profile retrieval logic using db
-  }
+    sendWelcomeEmail() {
+        console.log(`Sending welcome email to ${this.email}`);
+    }
 }
 
 
-// After (SRP Applied):
-class AuthenticationService {
-  authenticate(username, password) {
-    // Authentication logic
-  }
+
+// GOOD CODE EXAMPLE:
+// Separate class for separate work
+
+class User {
+    constructor(name, email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    getUserDetails() {
+        return `User: ${this.name}, Email: ${this.email}`;
+    }
 }
-class UserDataValidator {
-  validate(data) {
-    // Data validation logic
-  }
+
+class EmailService {
+    sendWelcomeEmail(user) {
+        console.log(`Sending welcome email to ${user.email}`);
+    }
 }
-class UserDatabase {
-  createUserProfile(data) {
-    // Profile creation logic
-  }
-  getUserProfile(userId) {
-    // Profile retrieval logic
-  }
-}
+
+const user = new User("John", "john@example.com");
+const emailService = new EmailService();
+emailService.sendWelcomeEmail(user);
+
 
 
 
 // 2. Open/Closed Principle
 
 
+// BAD CODE EXAMPLE:
+// Directly modifying the class to add new features
 
-/*Use Case :-  Create an AbstractShape interface with methods for calculating area and perimeter. Concrete shapes like Circle and Square can implement this interface without modifying the original code.*/
-
-
-// Before (Violates OCP):
-class ManageSalaries {
-  constructor() {
-    this.salaryRates = [
-      { id: 1, role: 'developer', rate: 100 },
-      { id: 2, role: 'architect', rate: 200 },
-      { id: 3, role: 'manager', rate: 300 },
-    ];
-  }
-  calculateSalaries(empId, hoursWorked) {
-    let salaryObject = this.salaryRates.find((o) => o.id === empId);
-    return hoursWorked * salaryObject.rate;
-  }
+class Discount {
+    getDiscount(type) {
+        if (type === "student") {
+            return 10;
+        } else if (type === "senior") {
+            return 20;
+        } else {
+            return 0;
+        }
+    }
 }
-const mgtSalary = new ManageSalaries();
-console.log("Salary : ", mgtSalary.calculateSalaries(1, 100));
 
 
-// After (OCP Applied):
-class ManageSalaries {
-  constructor() {
-    this.salaryRates = [
-      { id: 1, role: 'developer', rate: 100 },
-      { id: 2, role: 'architect', rate: 200 },
-      { id: 3, role: 'manager', rate: 300 },
-    ];
-  }
-  calculateSalaries(empId, hoursWorked) {
-    let salaryObject = this.salaryRates.find((o) => o.id === empId);
-    return hoursWorked * salaryObject.rate;
-  }
-  addSalaryRate(id, role, rate) {
-    this.salaryRates.push({ id: id, role: role, rate: rate });
-  }
+
+// GOOD CODE EXAMPLE:
+// Extending class and not modifying a single class
+
+class Discount {
+    getDiscount() {
+        return 0; 
+    }
 }
-const mgtSalary = new ManageSalaries();
-mgtSalary.addSalaryRate(4, 'developer', 250);
-console.log('Salary : ', mgtSalary.calculateSalaries(4, 100));
+
+
+class StudentDiscount extends Discount {
+    getDiscount() {
+        return 10;
+    }
+}
+
+class SeniorDiscount extends Discount {
+    getDiscount() {
+        return 20;
+    }
+}
+
+// Usage
+const discounts = [new StudentDiscount(), new SeniorDiscount()];
+discounts.forEach(discount => console.log(discount.getDiscount()));
+
 
 
 
 
 // 3. Liskov’s Substitution Principle
-//UseCase:-   If a function expects a Shape object to calculate its area, any valid subtype like Circle or Square should seamlessly replace it, maintaining the expected behavior.
 
 
-// Before (LSP Violates):
-interface Shape {
-  calculateArea(): number;
+// BAD CODE EXAMPLE:
+// Not following LSP
+
+class Rectangle {
+    constructor(width, height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    getArea() {
+        return this.width * this.height;
+    }
 }
-class Rectangle implements Shape {
-  width: number;
-  height: number;
-  constructor(width: number, height: number) {
-    this.width = width;
-    this.height = height;
-  }
-  calculateArea(): number {
-    return this.width * this.height;
-  }
-}
+
+
 class Square extends Rectangle {
-  constructor(size: number) {
-    super(size, size);
-  }
-  setWidth(width: number) {
-    this.width = width;
-    this.height = width;
-  }
-  setHeight(height: number) {
-    this.width = height;
-    this.height = height;
-  }
+    constructor(size) {
+        super(size, size); 
+    }
+
+    setWidth(width) {
+        this.width = width;
+        this.height = width; 
+    }
 }
 
 
-function drawShape(shape: Shape) {
-  const area = shape.calculateArea();
-}
-const mySquare = new Square(5);
-mySquare.setWidth(4);
-drawShape(mySquare);
 
+// GOOD CODE EXAMPLE:
+// Following LSP
 
-// (LSP Applied):
-interface Shape {
-  calculateArea(): number;
+class Shape {
+    getArea() {
+        throw new Error("Method not implemented");
+    }
 }
-class Rectangle implements Shape
-{
-  width: number;
-  height: number;
-  constructor(width: number, height: number) {
-    this.width = width;
-    this.height = height;
-  }
-  calculateArea(): number {
-    return this.width * this.height;
-  }
+
+class Rectangle extends Shape {
+    constructor(width, height) {
+        super();
+        this.width = width;
+        this.height = height;
+    }
+
+    getArea() {
+        return this.width * this.height;
+    }
 }
-function drawShape(shape: Shape) {
-  const area = shape.calculateArea();
+
+class Square extends Shape {
+    constructor(size) {
+        super();
+        this.size = size;
+    }
+
+    getArea() {
+        return this.size * this.size;
+    }
 }
-drawShape(new Rectangle(5, 4));
+
+const shapes = [new Rectangle(5, 10), new Square(6)];
+shapes.forEach(shape => console.log(shape.getArea()));
+
 
 
 
 
 // 4. Interface Segregation Principle
 
-/* Use Case:-Instead of a single UserInterface with methods for both admin and user features, create separate interfaces (AdminInterface and UserInterface) exposing only relevant methods for each type of user.*/
+// BAD CODE EXAMPLE:
+// Interface with unrelated methods
 
+class Worker {
+    work() {
+        throw new Error("Method not implemented");
+    }
 
-// Before (Violates ISP):
-Class DrivingTest {
-  constructor(userType) {
-    this.userType = userType;
-  }
-  startCarTest() {
-    console.log(“This is for Car Drivers”’);
-  }
-  startTruckTest() {
-    console.log(“This is for Truck Drivers”);
-  }
+    eat() {
+        throw new Error("Method not implemented");
+    }
 }
-class CarDrivingTest extends DrivingTest {
-  constructor(userType) {
-    super(userType);
-  }
-  startCarTest() {
-    return “Car Test Started”;
-  }
-  startTruckTest() {
-    return null;
-  }
+
+class RobotWorker extends Worker {
+    work() {
+        console.log("Robot working");
+    }
+
+    eat() {
+        throw new Error("Robots don't eat");
+    }
 }
-class TruckDrivingTest extends DrivingTest {
-  constructor(userType) {
-    super(userType);
-  }
-  startCarTest() {
-    return null;
-  }
-  startTruckTest() {
-    return “Truck Test Started”;
-  }
-}
-const carTest = new CarDrivingTest(carDriver );
-console.log(carTest.startCarTest());
-console.log(carTest.startTruckTest());
-const truckTest = new TruckDrivingTest( ruckdriver );
-console.log(truckTest.startCarTest());
-console.log(truckTest.startTruckTest());
 
 
 
-// After (ISP Applied):
-Class DrivingTest {
-  constructor(userType) {
-    this.userType = userType;
-  }
+// GOOD CODE EXAMPLE:
+// Separate interfaces for related functionality
+
+class Workable {
+    work() {
+        throw new Error("Method not implemented");
+    }
 }
-class CarDrivingTest extends DrivingTest {
-  constructor(userType) {
-    super(userType);
-  }
+
+class Eatable {
+    eat() {
+        throw new Error("Method not implemented");
+    }
 }
-class TruckDrivingTest extends DrivingTest {
-  constructor(userType) {
-    super(userType);
-  }
+
+class HumanWorker extends Workable {
+    work() {
+        console.log("Human working");
+    }
+
+    eat() {
+        console.log("Human eating");
+    }
 }
-const carUserTests = {
-  startCarTest() {
-    return ‘Car Test Started’;
-  },
+
+class RobotWorker extends Workable {
+    work() {
+        console.log("Robot working");
+    }
 }
-const truckUserTests = {
-  startTruckTest() {
-    return ‘Truck Test Started’;
-  },
-}
-Object.assign(CarDrivingTest.prototype, carUserTests);
-Object.assign(TruckDrivingTest.prototype, truckUserTests);
-const carTest = new CarDrivingTest(carDriver );
-console.log(carTest.startCarTest());
-console.log(carTest.startTruckTest()); // Will throw an exception
-const truckTest = new TruckDrivingTest( ruckdriver );
-console.log(truckTest.startTruckTest());
-console.log(truckTest.startCarTest()); // Will throw an exception
+
+const humanWorker = new HumanWorker();
+humanWorker.work();
+humanWorker.eat();
+
+const robotWorker = new RobotWorker();
+robotWorker.work();
+
 
 
 
 // 5. Dependency Inversion Principle
 
 
-//Instead of directly referencing a specific data storage implementation in your application logic, rely on an abstract DataStore interface.
+// BAD CODE EXAMPLE:
+// High-level module depends on low-level module directly
 
-
-// Before (Violates DIP):
-class EmailController {
-  sendEmail(emailDetails) {
-     // Need to change this line in every controller that uses YahooAPI.const response = YahooAPI.sendEmail(emailDetails);
-    if (response.status == 200) {
-       return true;
-    } else {
-       return false;
+class Frontend {
+    constructor() {
+        this.backend = new Backend();
     }
-  }
-}
 
-
-// After (DIP Applied):
-class EmailController {
-  sendEmail(emailDetails) {
-    const response = EmailApiController.sendEmail(emailDetails);
-    if (response.status == 200) {
-       return true;
-    } else {
-       return false;
+    render() {
+        return this.backend.getData();
     }
-  }
 }
-class EmailApiController {
-  sendEmail(emailDetails) {
-    // Only need to change this controller. return YahooAPI.sendEmail(emailDetails);
-  }
+
+class Backend {
+    getData() {
+        return "Data from backend";
+    }
 }
+
+
+
+// GOOD CODE EXAMPLE:
+// Abstraction for backend operations
+
+class BackendService {
+    getData() {
+        throw new Error("Method not implemented");
+    }
+}
+
+class Backend extends BackendService {
+    getData() {
+        return "Data from backend";
+    }
+}
+
+class Frontend {
+    constructor(backendService) {
+        this.backendService = backendService;
+    }
+
+    render() {
+        return this.backendService.getData();
+    }
+}
+
+const backend = new Backend();
+const frontend = new Frontend(backend);
+console.log(frontend.render());
+
 
 
 
